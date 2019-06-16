@@ -11,9 +11,9 @@ public class SwapBits {
 
     long ival = x & imask; // >0: 1, =0: 0
     long jval = x & jmask;
-
-    if (jval > 0) x |= imask;
-    else          x &= ~imask;
+                               // ^= toggle a bit
+    if (jval > 0) x |= imask;  // |= turn on a bit
+    else          x &= ~imask; // &= turn off a bit
     if (ival > 0) x |= jmask;
     else          x &= ~jmask;
 
