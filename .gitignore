@@ -24,3 +24,5 @@ __pycache__/
 cpp_build
 
 epi_judge_java/java_build/
+
+.DS_Store
