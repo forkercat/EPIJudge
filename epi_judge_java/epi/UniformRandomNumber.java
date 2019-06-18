@@ -1,9 +1,9 @@
 package epi;
 import epi.test_framework.EpiTest;
-import epi.test_framework.RandomSequenceChecker;
 import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
+import epi.test_framework.RandomSequenceChecker;
 import epi.test_framework.TimedExecutor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,9 +14,23 @@ public class UniformRandomNumber {
   }
 
   public static int uniformRandom(int lowerBound, int upperBound) {
-    // TODO - you fill in here.
-    return 0;
+    int n = upperBound - lowerBound + 1;
+    int result;
+    do {
+      result = 0;
+      int numBit = (int) log2(n) + 1;
+      for (int i = 0; i < numBit; ++i) {
+      // for (int i = 0; (1 << i) < n; ++i) {   // (1 << i) <=> 2^i
+        result = (result << 1) | zeroOneRandom();
+      }
+    } while (result >= n);
+    return lowerBound + result;
   }
+
+  private static double log2(int x) {
+    return Math.log(x) / Math.log(2);
+  }
+
   private static boolean uniformRandomRunner(TimedExecutor executor,
                                              int lowerBound, int upperBound)
       throws Exception {

@@ -36,7 +36,7 @@ public class PrimitiveMultiply {
   /**
    *  Brute-force
    */
-  public static long bruteForce(long x, long y) {
+  public static long bruteforce(long x, long y) {
     long result = 0;
 
     if (x < y) { // small optimization
