@@ -14,6 +14,7 @@ public class PowerXY {
       power = -power;
       x = 1.0 / x;
     }
+    // Another way to think about the while is that x^1010 = x^1000 * x^0010
     while (power != 0) { // consider 0, 1, 2, 3, 4, 5
       if ((power & 1) != 0) { // odd
         result *= x; // only happens once or twice
