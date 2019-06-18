@@ -24,7 +24,6 @@ public class PowerXY {
     return result;
   }
 
-
   /*
   // recursive
   public static double power(double x, int y) {
