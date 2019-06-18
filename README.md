@@ -1,5 +1,7 @@
 # EPI Judge
 
+By [adnanaziz](https://github.com/adnanaziz/EPIJudge)
+
 ## Introduction
 
 EPI Judge consists of the following:
