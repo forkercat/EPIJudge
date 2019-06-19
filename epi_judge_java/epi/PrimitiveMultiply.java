@@ -9,17 +9,18 @@ public class PrimitiveMultiply {
     return solution(x, y);
   }
 
+  /** O(n) */
   public static long solution(long x, long y) {
     // x = 1101 (13)
     // y = 1001 (9)
+    // Iterate through x = 1101, we have y*2^3 + y*2^2 + 0 + y*2^0 = 117
     long sum = 0;
-    while (x != 0) {
-      // Examines each bit of x
-      if ((x & 1) != 0) {
+    while (x != 0) { // Examines each bit of x
+      if ((x % 1) == 1) { // add
         sum = add(sum, y);
       }
       x >>>= 1;
-      y <<= 1;
+      y <<= 1; // 2^k * y
     }
     return sum;
   }
@@ -34,7 +35,7 @@ public class PrimitiveMultiply {
   }
 
   /**
-   *  Brute-force
+   *  Brute-force, O(2^n)
    */
   public static long bruteforce(long x, long y) {
     long result = 0;
