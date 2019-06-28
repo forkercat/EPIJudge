@@ -18,11 +18,32 @@ public class KthNodeInTree {
     }
   }
 
+  //   1
+  //  / \
+  // 2   3
+
   public static BinaryTreeNode<Integer>
   findKthNodeBinaryTree(BinaryTreeNode<Integer> tree, int k) {
-    // TODO - you fill in here.
-    return null;
+    if (tree == null) return null;
+
+    int t = size(tree.left); // #nodes in the left subtree
+
+    if (k <= t) {
+      return findKthNodeBinaryTree(tree.left, k);
+    } else if (k == t + 1) { // this is an invariant
+      return tree;
+    } else { // go right
+      return findKthNodeBinaryTree(tree.right, k - t - 1);
+    }
   }
+
+  private static int size(BinaryTreeNode<Integer> tree) {
+    if (tree == null) return 0;
+    return tree.size;
+  }
+
+
+
   public static BinaryTreeNode<Integer>
   convertToTreeWithSize(BinaryTree<Integer> original) {
     if (original == null)
