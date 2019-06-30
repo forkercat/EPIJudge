@@ -6,7 +6,9 @@ public class ClosestIntSameWeight {
 
   public static long closestIntSameBitCount(long x) {
     // return solution(x);
-    return myway(x);
+    // return myway(x);
+    // return review(x);
+    return reviewO1(x);
   }
 
   // O(n)
@@ -42,6 +44,39 @@ public class ClosestIntSameWeight {
     // else return x + isolate;
     return x ^= (isolate) | (isolate << 1L);
   }
+
+
+  // review
+  public static long review(long x) {
+    int n = 64;
+    for (int i = 0; i < n - 1; ++i) {
+      int j = i + 1;
+      long p = (x >> i) & 1;
+      long q = (x >> j) & 1;
+      if (p != q) {
+        // diff and swap
+        x ^= (1L << i) | (1L << j);
+        break;
+      }
+    }
+    return x;
+  }
+
+  // O(1)
+  public static long reviewO1(long x) {
+    long lsd = (x & 1);
+    long rightmostDigit;
+    if (lsd == 0) { // find the rightmost "1", eg. 111111100000000
+      rightmostDigit = x & ~(x - 1);
+    } else {                              // 00000000111111111
+      rightmostDigit = (~x) & ~((~x) - 1);  // flip from 0 to 1 first
+    }
+    // swap(rightmostDigit, rightmostDigit >> 1)
+    x ^= (rightmostDigit) | (rightmostDigit >> 1);
+    return x;
+  }
+
+
 
   public static void main(String[] args) {
     System.exit(

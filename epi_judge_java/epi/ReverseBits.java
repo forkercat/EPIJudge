@@ -16,6 +16,7 @@ public class ReverseBits {
   }
 
   // Solution
+  /*
   private static long[] precomputed;
   public static long reverseBits(long x) {
     final int MASK_SIZE = 16;
@@ -25,6 +26,7 @@ public class ReverseBits {
             precomputed[(int) (x >>> MASK_SIZE * 2) & BIT_MASK] << (1 * MASK_SIZE) |
             precomputed[(int) (x >>> MASK_SIZE * 3) & BIT_MASK];
   }
+  */
 
   public static void main(String[] args) {
     System.exit(
