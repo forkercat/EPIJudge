@@ -3,13 +3,25 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 public class SwapBits {
   @EpiTest(testDataFile = "swap_bits.tsv")
+  // Solution
+  // public static long swapBits(long x, int i, int j) {
+  //   // Extract the i-th and j-th bits, and see if they differ
+  //   if (((x >>> i) & 1) != ((x >>> j) & 1)) { // diff
+  //     x ^= (1L << i);
+  //     x ^= (1L << j);
+  //     // or
+  //     // x ^= (1L << i) | (1L << j);
+  //   }
+  //   return x;
+  // }
+
+  // Reviewing
   public static long swapBits(long x, int i, int j) {
-    // Extract the i-th and j-th bits, and see if they differ
-    if (((x >>> i) & 1) != ((x >>> j) & 1)) { // diff
-      x ^= (1L << i);
-      x ^= (1L << j);
-      // or
-      // x ^= (1L << i) | (1L << j);
+    long iBit = (x >> i) & 1;
+    long jBit = (x >> j) & 1;
+
+    if ((iBit ^ jBit) == 1) { // if they are different
+      x ^= (1 << i) | (1 << j);
     }
     return x;
   }
