@@ -13,19 +13,19 @@ public class UniformRandomNumber {
     return gen.nextInt(2);
   }
 
-  public static int uniformRandom(int lowerBound, int upperBound) {
-    int n = upperBound - lowerBound + 1; // number of outcomes
-    int result;
-    do {
-      result = 0;
-      int numBit = (int) log2(n) + 1;
-      for (int i = 0; i < numBit; ++i) {
-      // for (int i = 0; (1 << i) < n; ++i) {   // (1 << i) <=> 2^i
-        result = (result << 1) | zeroOneRandom();
-      }
-    } while (result >= n);
-    return lowerBound + result;
-  }
+  // public static int uniformRandom(int lowerBound, int upperBound) {
+  //   int n = upperBound - lowerBound + 1; // number of outcomes
+  //   int result;
+  //   do {
+  //     result = 0;
+  //     int numBit = (int) log2(n) + 1;
+  //     for (int i = 0; i < numBit; ++i) {
+  //     // for (int i = 0; (1 << i) < n; ++i) {   // (1 << i) <=> 2^i
+  //       result = (result << 1) | zeroOneRandom();
+  //     }
+  //   } while (result >= n);
+  //   return lowerBound + result;
+  // }
 
   // Solution
   public static int uniformRandom(int lowerBound, int upperBound) {
