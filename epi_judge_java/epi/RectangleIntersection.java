@@ -73,16 +73,19 @@ public class RectangleIntersection {
 
   // x or w (width) could be y or h (height)
   private static int[] overlappedLength(int x1, int w1, int x2, int w2) {
-    // Assume x1 is the smaller one
+    // Guarantee x1 <= x2
     if (x1 > x2) {
       int tmp = x1;
       x1 = x2; x2 = tmp;
       tmp = w1;
       w1 = w2; w2 = tmp;
     }
+    // Check intersection
     if (x2 >= x1 && x2 <= (x1 + w1)) { // overlapped (including adjacent cases)
-      if (x2 + w2 <= x1 + w1) return new int[] {x2, w2}; // x2 is inside x1 - fully overlapped
-      else return new int[] {x2, x1 + w1 - x2}; // partially overlapped (include adjacent)
+      // x2 is inside x1 - fully overlapped
+      if (x2 + w2 <= x1 + w1) return new int[] {x2, w2};
+      // partially overlapped (include adjacent)
+      else return new int[] {x2, x1 + w1 - x2};
     } else { // not overlapped
       return null;
     }
