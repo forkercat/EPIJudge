@@ -7,11 +7,28 @@ import java.util.HashSet;
 import java.util.Set;
 public class DoListsOverlap {
 
-  public static ListNode<Integer> overlappingLists(ListNode<Integer> l0,
-                                                   ListNode<Integer> l1) {
-    // TODO - you fill in here.
-    return null;
+  public static ListNode<Integer> overlappingLists(ListNode<Integer> l1,
+                                                   ListNode<Integer> l2) {
+    // Store the start of cycle if any.
+    ListNode<Integer> root1 = IsListCyclic.hasCycle(l1);
+    ListNode<Integer> root2 = IsListCyclic.hasCycle(l2);
+    // Both lists don't have cycles.
+    if (root1 == null && root2 == null) {
+      return DoTerminatedListsOverlap.overlappingNoCycleLists(l1, l2);
+    }
+    // One list is cyclic, while the other is not.
+    if (root1 == null || root2 == null) {
+      return null;
+    }
+    // Both lists are cyclic.
+    ListNode<Integer> temp = root1;
+    do {
+      temp = temp.next;
+    } while (temp != root1 && temp != root2);
+    return (temp != root1) ? root1 : null;
   }
+
+
   @EpiTest(testDataFile = "do_lists_overlap.tsv")
   public static void
   overlappingListsWrapper(TimedExecutor executor, ListNode<Integer> l0,
