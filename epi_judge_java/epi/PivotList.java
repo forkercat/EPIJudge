@@ -8,10 +8,42 @@ import java.util.Collections;
 import java.util.List;
 public class PivotList {
 
-  public static ListNode<Integer> listPivoting(ListNode<Integer> l, int x) {
-    // TODO - you fill in here.
-    return null;
+  public static ListNode<Integer> listPivoting(ListNode<Integer> L, int k) {
+    ListNode<Integer> leftDummy = new ListNode<>(-1, null);
+    ListNode<Integer> midDummy = new ListNode<>(-1, null);
+    ListNode<Integer> rightDummy = new ListNode<>(-1, null);
+    ListNode<Integer> leftPrev = leftDummy;
+    ListNode<Integer> midPrev = midDummy;
+    ListNode<Integer> rightPrev = rightDummy;
+
+    while (L != null) {
+      if (L.data < k) { // go to left
+        leftPrev.next = L;
+        leftPrev = leftPrev.next;
+      } else if (L.data > k) { // go to right
+        rightPrev.next = L;
+        rightPrev = rightPrev.next;
+      } else {
+        midPrev.next = L;
+        midPrev = midPrev.next;
+      }
+      L = L.next;
+    }
+
+    rightPrev.next = null;
+    midPrev.next = rightDummy.next;
+    leftPrev.next = midDummy.next;
+
+    // Error occurs when mid list is empty
+    leftPrev.next = midDummy.next;
+    midPrev.next = rightDummy.next;
+    rightPrev.next = null;
+
+    return leftDummy.next;
   }
+
+
+
   public static List<Integer> linkedToList(ListNode<Integer> l) {
     List<Integer> v = new ArrayList<>();
     while (l != null) {
