@@ -1,9 +1,12 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
+
 import java.util.ArrayList;
 import java.util.List;
+
 public class TreeRightSibling {
   public static class BinaryTreeNode<T> {
     public T data;
@@ -13,10 +16,60 @@ public class TreeRightSibling {
     public BinaryTreeNode(T data) { this.data = data; }
   }
 
+  /**
+   * Solution - Space: O(1)
+   */
   public static void constructRightSibling(BinaryTreeNode<Integer> tree) {
-    // TODO - you fill in here.
-    return;
+    while (tree != null) {
+      populateLowerLevelNextField(tree);
+      tree = tree.left;
+    }
   }
+
+  private static void populateLowerLevelNextField(BinaryTreeNode<Integer> startNode) {
+    if (startNode.left == null && startNode.right == null) {
+      return;
+    }
+    BinaryTreeNode<Integer> p = startNode;
+    while (p != null) {
+      p.left.next = p.right; // left child
+      p.right.next = (p.next != null) ? p.next.left : null; // right child
+      p = p.next; // move to next
+    }
+  }
+
+
+  /**
+   * BFS method - Space: O(N)
+   */
+  /*
+  public static void constructRightSibling(BinaryTreeNode<Integer> tree) {
+    if (tree == null) {
+      return;
+    }
+    Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+    queue.offer(tree);
+
+    while (queue.size() > 0) {
+      int childSize = queue.size();
+      for (int i = 0; i < childSize; ++i) {
+        BinaryTreeNode<Integer> p = queue.poll();
+        if (p.left == null && p.right == null) {
+          continue;
+        }
+        p.left.next = p.right;
+        p.right.next = (p.next != null) ? p.next.left : null;
+        queue.offer(p.left);
+        queue.offer(p.right);
+      }
+    }
+  }
+   */
+
+
+
+
+
   private static BinaryTreeNode<Integer>
   cloneTree(BinaryTree<Integer> original) {
     if (original == null) {

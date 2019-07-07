@@ -1,16 +1,43 @@
 package epi;
-import epi.test_framework.BinaryTreeUtils;
-import epi.test_framework.EpiTest;
-import epi.test_framework.GenericTest;
-import epi.test_framework.TestFailure;
-import epi.test_framework.TimedExecutor;
+
+import epi.test_framework.*;
+
 public class LowestCommonAncestor {
+
+  private static BinaryTreeNode<Integer> result = null;
+
   public static BinaryTreeNode<Integer> LCA(BinaryTreeNode<Integer> tree,
-                                            BinaryTreeNode<Integer> node0,
-                                            BinaryTreeNode<Integer> node1) {
-    // TODO - you fill in here.
-    return null;
+                                            BinaryTreeNode<Integer> node1,
+                                            BinaryTreeNode<Integer> node2) {
+    result = null;
+    if (node1 == node2) {
+      return node1;
+    }
+    findNode(tree, node1, node2);
+    return result;
   }
+
+
+  private static boolean findNode(BinaryTreeNode<Integer> root,
+                                  BinaryTreeNode<Integer> node1,
+                                  BinaryTreeNode<Integer> node2) {
+    if (root == null) {
+      return false;
+    }
+
+    int left = findNode(root.left, node1, node2) ? 1 : 0;
+    int right = findNode(root.right, node1, node2) ? 1 : 0;
+    int mid = (root == node1 || root == node2) ? 1 : 0;
+
+    if (left + right + mid >= 2) {
+      result = root;
+    }
+
+    return (left + right + mid) > 0;
+  }
+
+
+
   @EpiTest(testDataFile = "lowest_common_ancestor.tsv")
   public static int lcaWrapper(TimedExecutor executor,
                                BinaryTreeNode<Integer> tree, Integer key0,
