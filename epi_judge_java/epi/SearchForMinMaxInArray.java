@@ -44,10 +44,31 @@ public class SearchForMinMaxInArray {
 
   @EpiTest(testDataFile = "search_for_min_max_in_array.tsv")
 
+
   public static MinMax findMinMax(List<Integer> A) {
-    // TODO - you fill in here.
-    return new MinMax(0, 0);
+    int minVal = Integer.MAX_VALUE;
+    int maxVal = Integer.MIN_VALUE;
+    //  0  1  2  3  4  5  6
+    //  3  4  5  6  7  8  9
+    for (int i = 0; i + 1 < A.size(); i += 2) {
+      if (A.get(i) < A.get(i + 1)) {
+        minVal = Math.min(minVal, A.get(i));
+        maxVal = Math.max(maxVal, A.get(i + 1));
+      } else {
+        minVal = Math.min(minVal, A.get(i + 1));
+        maxVal = Math.max(maxVal, A.get(i));
+      }
+    }
+
+    if ((A.size() & 1) == 1) {
+      minVal = Math.min(minVal, A.get(A.size() - 1));
+      maxVal = Math.max(maxVal, A.get(A.size() - 1));
+    }
+
+    return new MinMax(minVal, maxVal);
   }
+
+
 
   public static void main(String[] args) {
     System.exit(
