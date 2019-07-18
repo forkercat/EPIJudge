@@ -44,7 +44,6 @@ public class SearchForMinMaxInArray {
 
   @EpiTest(testDataFile = "search_for_min_max_in_array.tsv")
 
-
   public static MinMax findMinMax(List<Integer> A) {
     int minVal = Integer.MAX_VALUE;
     int maxVal = Integer.MIN_VALUE;
