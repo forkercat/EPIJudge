@@ -12,14 +12,13 @@ public class KthLargestInArray {
   // findKthLargest(A, 3) returns 1, and findKthLargest(A, 4) returns -1.
   @EpiTest(testDataFile = "kth_largest_in_array.tsv")
 
-
-
   // Brute-force
   // public static int findKthLargest(int k, List<Integer> A) {
   //   Collections.sort(A, Comparator.reverseOrder());
   //   return A.get(k - 1);
   // }
 
+  
   // Better
   public static int findKthLargest(int k, List<Integer> A) {
     int n = A.size();
