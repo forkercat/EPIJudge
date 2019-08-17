@@ -82,6 +82,20 @@ public class DutchNationalFlag {
   }
    */
 
+  // Variant 1
+  public static void variant1(List<Color> A) {
+    int n = A.size();
+    if (n == 0) return;
+    int count = 0;
+    while (count < n) {
+      Color curr = A.get(count);
+      for (int i = count; i < n; ++i) {
+        if (A.get(i).ordinal() == curr.ordinal()) {
+          Collections.swap(A, i, count++);
+        }
+      }
+    }
+  }
 
 
 
