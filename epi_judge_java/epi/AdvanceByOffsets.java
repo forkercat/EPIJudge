@@ -30,6 +30,7 @@ public class AdvanceByOffsets {
 
   // time: O(N)
   // space: O(N)
+  /*
   public static boolean canReachEnd(List<Integer> maxAdvanceSteps) {
     int n = maxAdvanceSteps.size();
     int[] count = new int[n];
@@ -51,12 +52,23 @@ public class AdvanceByOffsets {
     }
     return true;
   }
+  */
 
 
-  // // solution
-  // // time: O(N)
-  // // space: O(1)
-  // public static boolean canReachEnd
+  // solution
+  // time: O(N)
+  // space: O(1)
+  // furthestIndex = i + maxAdvanceSteps.get(i)
+  public static boolean canReachEnd(List<Integer> maxAdvanceSteps) {
+    int n = maxAdvanceSteps.size();
+    int furthestIndex = 0;
+    // 1. current index is reachable
+    // 2. furthestIndex < the last index (meaning we still not reach the end)
+    for (int i = 0; i <= furthestIndex && furthestIndex < n - 1; ++i) {
+      furthestIndex = Math.max(furthestIndex, i + maxAdvanceSteps.get(i));
+    }
+    return furthestIndex >= n - 1;
+  }
 
 
 
