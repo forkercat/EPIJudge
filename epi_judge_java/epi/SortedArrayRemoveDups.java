@@ -1,7 +1,9 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TimedExecutor;
+
 import java.util.List;
 public class SortedArrayRemoveDups {
 
@@ -50,7 +52,29 @@ public class SortedArrayRemoveDups {
   }
 
 
+  /** Variant 1 */
+  /*
+  public static void main(String[] args) {
+    List<Integer> L = new ArrayList<>();
+    int[] nums = new int[] { 3, 4, 2, 1, 1, 9, 1, 2 };
+    // result: 3, 4, 2, 9, 2
+    for (int val : nums) L.add(val);
+    System.out.println("count: " + removeOccurrence(L, 1));
+    System.out.println("List: " + L);
+  }
+   */
 
+  // O(N)
+  public static int removeOccurrence(List<Integer> A, int key) {
+    int i = 0, idx = 0;
+    while (i < A.size()) {
+      if (A.get(i).equals(key) == false) { // equal to the occurrence
+        A.set(idx++, A.get(i));
+      }
+      i += 1;
+    }
+    return idx;
+  }
 
 
   @EpiTest(testDataFile = "sorted_array_remove_dups.tsv")
