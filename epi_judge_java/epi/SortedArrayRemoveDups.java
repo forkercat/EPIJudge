@@ -7,7 +7,7 @@ import epi.test_framework.TimedExecutor;
 import java.util.List;
 public class SortedArrayRemoveDups {
 
-  // brute-force O(N^2)
+  /** brute-force O(N^2) */
   // Returns the number of valid entries after deletion.
   /*
   public static int deleteDuplicates(List<Integer> A) {
@@ -26,8 +26,7 @@ public class SortedArrayRemoveDups {
   }
    */
 
-
-  // O(N)
+  /** better O(N) */
   // 1  2  2  3  3  4  5
   // 1  2  3  4  5  idx
   public static int deleteDuplicates(List<Integer> A) {
@@ -72,6 +71,43 @@ public class SortedArrayRemoveDups {
         A.set(idx++, A.get(i));
       }
       i += 1;
+    }
+    return idx;
+  }
+
+  /** Variant 2 */
+  /*
+  public static void main(String[] args) {
+    List<Integer> L = new ArrayList<>();
+    int m = 1;
+    int[] nums = new int[] { 1, 2, 2, 2, 2, 3, 4, 4, 5, 6, 6, 6 };
+    // result:               1, 2, 2, 3, 4, 4, 5, 6, 6, 6  (m = 4)
+    for (int val : nums) L.add(val);
+    System.out.println("count: " + removeExtra(L, m)); // test (L, 1)
+    System.out.println("List: " + L);
+  }
+   */
+
+  // O(N) one-pass
+  // index | 0  1  2  3  4  5  6  7  8  9  10  11
+  // m = 4 | 1  2  2  2  2  3  4  4  5  6  6   6
+  //         i  ----------> i
+  //        idx ----------> idx
+  //                 idx <---| (back to)
+  //                    (m - 2)
+  public static int removeExtra(List<Integer> A, int m) {
+    int i = 0, idx = 0;
+    while (i < A.size()) {
+      int count = 0;
+      int curr = A.get(i);
+      // count the occurrence
+      while (i < A.size() && A.get(i).equals(curr)) {
+        count += 1;
+        A.set(idx++, A.get(i++));
+      }
+      if (m >= 2 && count == m) { // min(2, m)
+        idx -= (m - 2);
+      }
     }
     return idx;
   }
