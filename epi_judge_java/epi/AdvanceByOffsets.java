@@ -1,8 +1,10 @@
 package epi;
+
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
 import java.util.List;
+
 public class AdvanceByOffsets {
 
   @EpiTest(testDataFile = "advance_by_offsets.tsv")
@@ -33,20 +35,20 @@ public class AdvanceByOffsets {
   /*
   public static boolean canReachEnd(List<Integer> maxAdvanceSteps) {
     int n = maxAdvanceSteps.size();
-    int[] count = new int[n];
+    int[] numStartExit = new int[n];
+    int balance = 0;
 
     for (int i = 0; i < n; ++i) {
       int step = maxAdvanceSteps.get(i);
-      if (step > 0) {
-        int start = i;
-        int end = start + step;
-        count[start] += 1;
-        if (end < n) {
-          count[end] -= 1;
-        }
+      int start = i;
+      int end = start + step;
+      numStartExit[start] += 1;
+      if (end < n) {
+        numStartExit[end] -= 1;
       }
-      count[i] += (i > 0) ? count[i - 1] : 0;
-      if (i < n - 1 && count[i] == 0) { // not the last element && count == 0
+      // numStartExit[i] += (i > 0) ? numStartExit[i - 1] : 0;
+      balance += numStartExit[i];
+      if (i < n - 1 && balance <= 0) { // not the last element && balance <= 0
         return false;
       }
     }
@@ -55,20 +57,23 @@ public class AdvanceByOffsets {
   */
 
 
+
   // solution
   // time: O(N)
   // space: O(1)
   // furthestIndex = i + maxAdvanceSteps.get(i)
   public static boolean canReachEnd(List<Integer> maxAdvanceSteps) {
     int n = maxAdvanceSteps.size();
+    int lastIndex = n - 1;
     int furthestIndex = 0;
     // 1. current index is reachable
     // 2. furthestIndex < the last index (meaning we still not reach the end)
-    for (int i = 0; i <= furthestIndex && furthestIndex < n - 1; ++i) {
+    for (int i = 0; i <= furthestIndex && furthestIndex < lastIndex; ++i) {
       furthestIndex = Math.max(furthestIndex, i + maxAdvanceSteps.get(i));
     }
-    return furthestIndex >= n - 1;
+    return furthestIndex >= lastIndex;
   }
+
 
 
 
