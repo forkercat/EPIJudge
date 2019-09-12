@@ -55,7 +55,7 @@ public class Hanoi {
     while (nStack.size() > 0) {
       int n = nStack.pop(), from = fromStack.pop(), by = byStack.pop(), to = toStack.pop();
       String s = stat.pop();
-      if (s.equals("1begin")) {
+      if (s.equals("1begin")) { // status: 1begin
         if (n == 1) {
           moveOne(result, from, to);
           continue;
@@ -66,17 +66,12 @@ public class Hanoi {
         // push new
         nStack.push(n - 1); fromStack.push(from); byStack.push(to); toStack.push(by);
         stat.push("1begin");
-      } else if (s.equals("2topDone")) {
+      } else { // status: 2topDone
         // move One
         moveOne(result, from, to);
-        // save current status
-        nStack.push(n); fromStack.push(from); byStack.push(by); toStack.push(to);
-        stat.push("3finish");
         // push new
         nStack.push(n - 1); fromStack.push(by); byStack.push(from); toStack.push(to);
         stat.push("1begin");
-      } else { // 3finish
-
       }
     }
   }
