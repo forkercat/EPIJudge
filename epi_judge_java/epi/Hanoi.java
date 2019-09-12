@@ -4,21 +4,24 @@ import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 public class Hanoi {
 
   private static final int NUM_PEGS = 3;
 
   public static List<List<Integer>> computeTowerHanoi(int numRings) {
     List<List<Integer>> result = new ArrayList<>();
-    move(result, numRings, 0, 1, 2);
+    /** Recursion */
+    // move(result, numRings, 0, 1, 2);
+    /** Iteration */
+    hanoiIteration(result, numRings);
     return result;
   }
 
-  // recursion
+  /**
+   * Recursion
+   */
   private static void move(List<List<Integer>> result, int n, int from, int by, int to) {
     if (n == 1) { // base case
       moveOne(result, from, to);
@@ -37,6 +40,48 @@ public class Hanoi {
     list.add(from); list.add(to);
     result.add(list);
   }
+
+  /**
+   * Iteration
+   */
+  private static void hanoiIteration(List<List<Integer>> result, int numRings) {
+    Stack<Integer> nStack = new Stack<>();
+    Stack<Integer> fromStack = new Stack<>();
+    Stack<Integer> byStack = new Stack<>();
+    Stack<Integer> toStack = new Stack<>();
+    Stack<String> stat = new Stack<>();
+    // Init
+    nStack.push(numRings); fromStack.push(0); byStack.push(1); toStack.push(2); stat.push("1begin");
+    while (nStack.size() > 0) {
+      int n = nStack.pop(), from = fromStack.pop(), by = byStack.pop(), to = toStack.pop();
+      String s = stat.pop();
+      if (s.equals("1begin")) {
+        if (n == 1) {
+          moveOne(result, from, to);
+          continue;
+        }
+        // save current status
+        nStack.push(n); fromStack.push(from); byStack.push(by); toStack.push(to);
+        stat.push("2topDone");
+        // push new
+        nStack.push(n - 1); fromStack.push(from); byStack.push(to); toStack.push(by);
+        stat.push("1begin");
+      } else if (s.equals("2topDone")) {
+        // move One
+        moveOne(result, from, to);
+        // save current status
+        nStack.push(n); fromStack.push(from); byStack.push(by); toStack.push(to);
+        stat.push("3finish");
+        // push new
+        nStack.push(n - 1); fromStack.push(by); byStack.push(from); toStack.push(to);
+        stat.push("1begin");
+      } else { // 3finish
+
+      }
+    }
+  }
+
+
 
 
 
