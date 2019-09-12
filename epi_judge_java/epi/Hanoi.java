@@ -15,7 +15,9 @@ public class Hanoi {
     /** Recursion */
     // move(result, numRings, 0, 1, 2);
     /** Iteration */
-    hanoiIteration(result, numRings);
+    // hanoiIteration(result, numRings);
+    /** Iteration (Opt) */
+    hanoiIterationOpt(result, numRings);
     return result;
   }
 
@@ -67,12 +69,42 @@ public class Hanoi {
         nStack.push(n - 1); fromStack.push(from); byStack.push(to); toStack.push(by);
         stat.push("1begin");
       } else { // status: 2topDone
-        // move One
+        // moveOne
         moveOne(result, from, to);
         // push new
         nStack.push(n - 1); fromStack.push(by); byStack.push(from); toStack.push(to);
         stat.push("1begin");
       }
+    }
+  }
+
+  private static void hanoiIterationOpt(List<List<Integer>> result, int numRings) {
+    Stack<Integer> nStack = new Stack<>();
+    Stack<Integer> fromStack = new Stack<>();
+    Stack<Integer> byStack = new Stack<>();
+    Stack<Integer> toStack = new Stack<>();
+
+    // Init
+    nStack.push(numRings); fromStack.push(0); byStack.push(1); toStack.push(2);
+
+    // begin
+    while (nStack.size() > 0) {
+      // pop
+      int n = nStack.pop(), from = fromStack.pop(), by = byStack.pop(), to = toStack.pop();
+
+      // base case
+      if (n == 1) {
+        moveOne(result, from, to);
+      } else {
+        // move by->to, by from
+        nStack.push(n - 1); fromStack.push(by); byStack.push(from); toStack.push(to);
+        // moveOne
+        // moveOne(result, from, to); // error
+        nStack.push(1); fromStack.push(from); byStack.push(by); toStack.push(to);
+        // move from->by, by to
+        nStack.push(n - 1); fromStack.push(from); byStack.push(to); toStack.push(by);
+      }
+      // end
     }
   }
 
