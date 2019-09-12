@@ -3,19 +3,43 @@ import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 import epi.test_framework.TestFailure;
 import epi.test_framework.TimedExecutor;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 public class Hanoi {
 
   private static final int NUM_PEGS = 3;
 
   public static List<List<Integer>> computeTowerHanoi(int numRings) {
-    // TODO - you fill in here.
-    return Collections.emptyList();
+    List<List<Integer>> result = new ArrayList<>();
+    move(result, numRings, 0, 1, 2);
+    return result;
   }
+
+  // recursion
+  private static void move(List<List<Integer>> result, int n, int from, int by, int to) {
+    if (n == 1) { // base case
+      moveOne(result, from, to);
+      return;
+    }
+    // move the top n-1 plates (from -> by, by to)
+    move(result, n - 1, from, to, by);
+    // move the one left
+    moveOne(result, from, to);
+    // move the top n-1 plates (by -> to, by from)
+    move(result, n - 1, by, from, to);
+  }
+
+  private static void moveOne(List<List<Integer>> result, int from, int to) {
+    List<Integer> list = new ArrayList<>();
+    list.add(from); list.add(to);
+    result.add(list);
+  }
+
+
+
   @EpiTest(testDataFile = "hanoi.tsv")
   public static void computeTowerHanoiWrapper(TimedExecutor executor,
                                               int numRings) throws Exception {
