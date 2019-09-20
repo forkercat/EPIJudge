@@ -5,9 +5,7 @@ import epi.test_framework.EpiTestComparator;
 import epi.test_framework.GenericTest;
 import epi.test_framework.LexicographicalListComparator;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiPredicate;
 public class Permutations {
   @EpiTest(testDataFile = "permutations.tsv")
@@ -33,8 +31,27 @@ public class Permutations {
   }
 
 
-  // variant
+  // variant (permutation unique)
 
+  private void permuteUnique(int depth, List<Integer> A, List<List<Integer>> result) {
+    // base case
+    if (depth == A.size() - 1) {
+      result.add(new ArrayList<>(A));
+      return;
+    }
+
+    // set
+    Set<Integer> set = new HashSet<>();
+
+    for (int i = depth; i < A.size(); ++i) {
+      if (set.contains(A.get(i)) == false) {
+        set.add(A.get(i));  // add to set
+        Collections.swap(A, depth, i);
+        permuteUnique(depth + 1, A, result);
+        Collections.swap(A, depth, i);
+      }
+    }
+  }
 
 
 
