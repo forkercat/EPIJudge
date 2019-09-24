@@ -114,6 +114,27 @@ public class BuyAndSellStock {
   }
 
 
+  /**
+   * Variant
+   */
+  public static void findLengthOfLongestSubarray(int[] nums) {
+    nums = new int[] { 3, 4, 4, 2, 1, 4, 5, 6, 6, 6, 7 };
+
+    int longestLength = 1;  // at least one element
+    int startIdx = 0, prev = 0;
+
+    for (int i = 0; i < nums.length; ++i) {
+      if (i > 0 && prev == nums[i]) { // duplicate (skip the first element)
+        longestLength = Math.max(longestLength, i - startIdx + 1);
+      } else { // not duplicate
+        startIdx = i;
+      }
+      prev = nums[i]; // update prev
+    }
+    System.out.println("Longest Length: " + longestLength);
+  }
+
+
 
   public static void main(String[] args) {
     System.exit(
