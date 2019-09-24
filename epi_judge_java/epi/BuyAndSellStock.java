@@ -7,13 +7,15 @@ import java.util.List;
 
 public class BuyAndSellStock {
   @EpiTest(testDataFile = "buy_and_sell_stock.tsv")
+
   /**
    * Brute-Force
    * Time: O(N^2)
+   * Space: O(1)
    */
   /*
   public static double computeMaxProfit(List<Double> prices) {
-    double maxProfit = Integer.MIN_VALUE;
+    double maxProfit = Double.MIN_VALUE;
 
     for (int i = 0; i < prices.size(); ++i) {
       for (int j = i; j < prices.size(); ++j) {
@@ -28,11 +30,28 @@ public class BuyAndSellStock {
   }
    */
 
+  /**
+   * Greedy
+   * Time: O(N)
+   * Space: O(1)
+   */
+  public static double computeMaxProfit(List<Double> prices) {
+    double maxProfit = 0.0;  // cannot init with Double.MIN_VALUE
+    double minPrice = Double.MAX_VALUE;
+    for (double price : prices) {
+      maxProfit = Math.max(maxProfit, price - minPrice);
+      minPrice = Math.min(minPrice, price);
+    }
+    return maxProfit;
+  }
+
 
   /**
    * Divide-and-Conquer
    * Time: O(N)
+   * Space: O(logN)
    */
+  /*
   public static double computeMaxProfit(List<Double> prices) {
     BuySell result = maxProfit(prices, 0, prices.size() - 1);
     return prices.get(result.sellTime) - prices.get(result.buyTime);
@@ -80,6 +99,7 @@ public class BuyAndSellStock {
 
     return new BuySell(bestBuyTime, bestSellTime, newMinTime, newMaxTime);
   }
+   */
 
   /**
    * BuySell (helper class)
