@@ -31,7 +31,7 @@ public class BuyAndSellStock {
    */
 
   /**
-   * Greedy
+   * OnePass
    * Time: O(N)
    * Space: O(1)
    */
@@ -117,6 +117,8 @@ public class BuyAndSellStock {
   /**
    * Variant
    */
+  /*
+  // bad code
   public static void findLengthOfLongestSubarray(int[] nums) {
     nums = new int[] { 3, 4, 4, 2, 1, 4, 5, 6, 6, 6, 7 };
 
@@ -133,10 +135,24 @@ public class BuyAndSellStock {
     }
     System.out.println("Longest Length: " + longestLength);
   }
+   */
+
+
+  public static int longestSubarrayWithEqualElements(int[] nums) {
+    nums = new int[] { 3, 4, 4, 2, 1, 4, 5, 6, 6, 6, 7 };
+    int currLen = 1;    // current max length
+    int maxLen = 1;     // overall max length
+    for (int i = 1; i < nums.length; ++i) {
+      currLen = (nums[i - 1] == nums[i]) ? currLen + 1 : 1;
+      maxLen = Math.max(currLen, maxLen);
+    }
+    System.out.println("Longest Length: " + maxLen);
+    return maxLen;
+  }
 
 
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
     System.exit(
         GenericTest
             .runFromAnnotations(args, "BuyAndSellStock.java",
