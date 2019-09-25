@@ -115,7 +115,8 @@ public class BuyAndSellStock {
 
 
   /**
-   * Variant
+   * Variant:
+   * Write a program that takes an array of integers adn finds the length of a longest subarray all of whose entries are equal.
    */
   /*
   // bad code
