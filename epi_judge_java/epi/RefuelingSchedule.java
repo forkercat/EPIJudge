@@ -7,13 +7,39 @@ import java.util.List;
 public class RefuelingSchedule {
   private static final int MPG = 20;
 
+  /**
+   * Brute-force
+   * Time: O(N^2)
+   */
   // gallons[i] is the amount of gas in city i, and distances[i] is the distance
   // city i to the next city.
   public static int findAmpleCity(List<Integer> gallons,
                                   List<Integer> distances) {
-    // TODO - you fill in here.
-    return 0;
+    int n = gallons.size(); // #city
+    // for each city i
+    for (int i = 0; i < n; ++i) {
+      boolean isAmple = true;
+      int gallonSum = gallons.get(i);
+      // check n cities including itself
+      for (int j = 0; j < n; ++j) { // n
+        int currCity = (i + j) % n; // caveat: the distance lies in the current city
+        int nextCity = (currCity + 1) % n;
+        gallonSum -= distances.get(currCity) / MPG;
+        if (gallonSum < 0) { // negative gas
+          isAmple = false;
+          break;
+        }
+        // reachable --> refuel!
+        gallonSum += gallons.get(nextCity);
+      }
+      if (isAmple) return i;
+    }
+    return -1; // no ample city
   }
+
+
+
+
   @EpiTest(testDataFile = "refueling_schedule.tsv")
   public static void findAmpleCityWrapper(TimedExecutor executor,
                                           List<Integer> gallons,
