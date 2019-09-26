@@ -13,6 +13,7 @@ public class RefuelingSchedule {
    */
   // gallons[i] is the amount of gas in city i, and distances[i] is the distance
   // city i to the next city.
+  /*
   public static int findAmpleCity(List<Integer> gallons,
                                   List<Integer> distances) {
     int n = gallons.size(); // #city
@@ -35,6 +36,46 @@ public class RefuelingSchedule {
       if (isAmple) return i;
     }
     return -1; // no ample city
+  }
+  */
+
+  /**
+   * Greedy (Failed)
+   * Time: O(N)
+   */
+  /*
+  public static int findAmpleCity(List<Integer> gallons,
+                           List<Integer> distances) {
+    int cityIdx = -1;
+    int maxRemainMiles = Integer.MIN_VALUE;
+    for (int i = 0; i < gallons.size(); ++i) { // for each city i
+      int currRemainMiles = gallons.get(i) * MPG - distances.get(i);
+      if (currRemainMiles > maxRemainMiles) {
+        cityIdx = i;
+        maxRemainMiles = currRemainMiles;
+      }
+    }
+    return cityIdx;
+  }
+  */
+
+  /**
+   * Greedy (check out the illustration in the book)
+   * Time: O(N)
+   */
+  public static int findAmpleCity(List<Integer> gallons,
+                                  List<Integer> distances) {
+    int n = gallons.size(), cityIdx = -1;
+    int gallon = 0, minGallon = Integer.MAX_VALUE;
+    for (int i = 0; i < n; ++i) {
+      gallon += gallons.get(i); // fuel
+      gallon -= distances.get(i) / MPG; // go to (i + 1)
+      if (gallon < minGallon) { // update min
+        minGallon = gallon;
+        cityIdx = (i + 1) % n;
+      }
+    }
+    return cityIdx;
   }
 
 
