@@ -3,10 +3,7 @@ package epi;
 import epi.test_framework.EpiTest;
 import epi.test_framework.GenericTest;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ThreeSum {
   @EpiTest(testDataFile = "three_sum.tsv")
@@ -28,6 +25,7 @@ public class ThreeSum {
   }
 
   // hash-set
+  /*
   public static boolean hasThreeSum(List<Integer> A, int t) {
     Set<Integer> set = new HashSet<>();
     for (int val : A) {
@@ -42,10 +40,12 @@ public class ThreeSum {
     }
     return false;
   }
+   */
 
 
   // cont'd above using binary search
   // O(N^2logN)
+  /*
   public static boolean hasThreeSum(List<Integer> A, int t) {
     int n = A.size();
     Collections.sort(A); // O(NlogN)
@@ -57,6 +57,7 @@ public class ThreeSum {
     }
     return false;
   }
+   */
 
   // standard binary search
   private static boolean binarySearch(List<Integer> A, int lo, int hi, int t) {
@@ -75,6 +76,7 @@ public class ThreeSum {
 
 
   // sort, using the idea of two pointers in Two Sum in sorted array
+  /*
   public static boolean hasThreeSum(List<Integer> A, int t) {
     Collections.sort(A); // O(NlogN)
     for (int val : A) { // for each element O(N)
@@ -92,6 +94,7 @@ public class ThreeSum {
     }
     return false;
   }
+   */
 
 
 
