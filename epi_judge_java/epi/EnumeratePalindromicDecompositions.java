@@ -11,7 +11,10 @@ import java.util.function.BiPredicate;
 public class EnumeratePalindromicDecompositions {
   @EpiTest(testDataFile = "enumerate_palindromic_decompositions.tsv")
 
-
+  /**
+   * Backtracking
+   * Think about the time complexity (Use recurrence)
+   */
   public static List<List<String>> palindromeDecompositions(String input) {
     List<List<String>> result = new ArrayList<>();
     generatePalindrome(0, input, new ArrayList<>(), result);
@@ -28,11 +31,11 @@ public class EnumeratePalindromicDecompositions {
       return;
     }
     /** Index warning */
-    for (int i = 1; offset + i <= input.length(); ++i) { // offset + i is at most the length of the string
-      String sub = input.substring(offset, offset + i); // i indicates #char
+    for (int preLen = 1; offset + preLen <= input.length(); ++preLen) { // offset + preLen is at most the length of the string
+      String sub = input.substring(offset, offset + preLen);
       if (isPalindromic(sub)) {
         build.add(sub);
-        generatePalindrome(offset + i, input, build, result);
+        generatePalindrome(offset + preLen, input, build, result);
         build.remove(build.size() - 1); // remove the last
       }
     }
