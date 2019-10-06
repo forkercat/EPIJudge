@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Stack;
 public class EnumerateTrees {
 
-  public static List<BinaryTreeNode<Integer>>
-  generateAllBinaryTrees(int numNodes) {
-    // TODO - you fill in here.
+  public static List<BinaryTreeNode<Integer>> generateAllBinaryTrees(int numNodes) {
+
+
     return Collections.emptyList();
   }
+
+
+
   public static List<Integer> serializeStructure(BinaryTreeNode<Integer> tree) {
     List<Integer> result = new ArrayList<>();
     Stack<BinaryTreeNode<Integer>> stack = new Stack<>();
