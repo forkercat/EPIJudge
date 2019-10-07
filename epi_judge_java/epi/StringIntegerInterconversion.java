@@ -73,25 +73,42 @@ public class StringIntegerInterconversion {
   }
    */
 
+  /*
   public static String intToString(int x) {
     boolean isNegative = (x < 0);
 
     StringBuilder sb = new StringBuilder();
 
     do {
-      int digit = Math.abs((x % 10));
+      int digit = Math.abs(x % 10);
       sb.append(digit);
       x /= 10;
     } while (x != 0);
 
     return sb.append(isNegative ? "-" : "").reverse().toString();
   }
+  */
+
+  public static String intToString(int x) {
+    long y = x;
+    boolean isNegative = (y < 0);
+    StringBuilder sb = new StringBuilder();
+    y = Math.abs(y);
+    do {
+      long digit = y % 10;
+      sb.append(digit);
+      y /= 10;
+    } while (y != 0);
+
+    return sb.append(isNegative ? "-" : "").reverse().toString();
+  }
 
 
 
-  /**
-   * stringToInt
-   */
+
+    /**
+     * stringToInt
+     */
   public static int stringToInt(String s) {
     // trim whitespaces
     s.trim();
